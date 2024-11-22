@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import { Product } from '../types/product';
+import { assets } from '@/assets/assets';
 interface ProductItemProps {
     product: Product;
 }
@@ -8,13 +9,14 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     return (
         <div className='max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#000000] '>
             <Image
-                src={product.image}
+                src={product.image ? product.image : assets.blog_pic_1}
                 alt='image'
                 width={400}
                 height={400}
                 className='border-b border-black'
+                priority
             />
-            <p className='ml-5 mt-5 px-1 inline-block bg-black text-white text-sm'>
+            <p className='ml-5 mt-5 rounded-sm p-1 inline-block bg-black text-white text-sm capitalize'>
                 {product.category}
             </p>
             <div className='p-5'>

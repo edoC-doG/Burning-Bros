@@ -6,4 +6,5 @@ export interface Product {
     description: string; 
     image: StaticImageData | string;
     category: string;
+    products: Array<Product>;
 }
