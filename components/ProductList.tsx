@@ -21,24 +21,30 @@ const ProductList = () => {
             }
         }
     };
+
     const fetchData = async () => {
         if (!loading && hasMore) {
             await new Promise(resolve => setTimeout(resolve, 1000)); // Giả lập độ trễ
             dispatch(getProducts({ limit: 20, skip: productList.length }));
         }
     };
+
+    // Fetch sản phẩm ban đầu
     useEffect(() => {
         if (hasMore) {
             dispatch(getProducts({ limit: 20, skip: 0 }));
         }
     }, [dispatch, hasMore]);
 
+    // Lắng nghe sự kiện scroll
     useEffect(() => {
         if (listRef.current) {
             listRef.current.addEventListener('scroll', handleScroll);
             return () => listRef.current?.removeEventListener('scroll', handleScroll);
         }
     }, [loading, hasMore]);
+
+
     return (
         <div className="w-full h-ful">
             <div className="flex justify-center gap-6 my-10">
@@ -64,11 +70,12 @@ const ProductList = () => {
                 >Groceries</button>
             </div>
             <InfiniteScroll
+                style={{}}
                 dataLength={productList.length}
                 next={fetchData}
                 hasMore={hasMore}
                 loader={<></>}
-                endMessage={<p>No more products</p>}
+                endMessage={<p className='text-center'>No more products</p>}
                 scrollThreshold={0.95}
             >
                 <div ref={listRef} className="flex flex-wrap justify-around gap-4 mb-16 xl:mx-24">
@@ -81,7 +88,7 @@ const ProductList = () => {
                 </div>
             </InfiniteScroll>
             <div className='mb-5'>
-                <LoadMore />
+                {loading && <LoadMore />}
             </div>
         </div >
     );
