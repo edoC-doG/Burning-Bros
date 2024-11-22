@@ -10,7 +10,7 @@ import LoadMore from './LoadMore';
 const ProductList = () => {
     const [menu, setMenu] = useState("All");
     const dispatch = useAppDispatch();
-    const { list, loading, hasMore, total } = useSelector((state: RootState) => state.product);
+    const { list, loading, hasMore } = useSelector((state: RootState) => state.product);
     const productList = list.products
     const listRef = useRef<HTMLDivElement | null>(null);
     const handleScroll = () => {
